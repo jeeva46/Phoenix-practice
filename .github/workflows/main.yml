@@ -30,7 +30,7 @@ jobs:
           -r cli,htmlextra
       - name: artifact the report
         if: always()
-        uses: actions/download-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.2.2
         with:
           name: Postman html report
           path: newman/*.html
