@@ -1,4 +1,4 @@
-name: post api collection
+name: practice api collection
 
 on:
   push:
