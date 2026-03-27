@@ -42,6 +42,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: newman/
       - name: sending email notification
+        if: always()
         uses: dawidd6/action-send-mail@v16
         with:
           server_address: smtp.gmail.com
@@ -56,7 +57,7 @@ jobs:
                Please find the collection report.
                URL: https://jeeva46.github.io/Phoenix-practice/
 
-          attachments: newman/index.html
+        
 
         
           
