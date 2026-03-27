@@ -28,14 +28,52 @@ jobs:
 
       - name: run the collection
         run: |
-          newman run Practice.postman_collection.json -e QA.postman_environment.json -d testdata.csv -r cli,html
-
+          newman run Practice.postman_collection.json \
+          -e QA.postman_environment.json \
+          -d testdata.csv \
+          -r htmlextra --reporter-htmlextra-export ./newman/index.html
+ 
       - name: save the html report
         if: always()
         uses: actions/upload-artifact@v6.0.0
         with:
           name: HTML REPORT
           path: newman/*html
+
+      - name: deploy the report in the github pages
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: newman/
+
+      - name: email notification
+        uses: dawidd6/action-send-mail@v16
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Daily Postman collection report 
+          to: rathinamjeeva4699@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            Hi All,
+              Please find the report postman collection report below
+              URL: https://jeeva46.github.io/Phoenix-practice/
+          attachments: newman/index.html
+
+
+
+
+          
+
+
+
+
+
+
+
+          
         
 
 
