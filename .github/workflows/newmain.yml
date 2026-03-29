@@ -33,7 +33,7 @@ jobs:
           -d testdata.csv \
           -r htmlextra --reporter-htmlextra-export ./newman/index.html
  
-      - name: save the html report
+      - name: save the htmlextra report
         if: always()
         uses: actions/upload-artifact@v6.0.0
         with:
